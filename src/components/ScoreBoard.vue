@@ -33,64 +33,30 @@
           i.fal.fa-plus
         button.add(@click="minusTeamOne")
           i.fal.fa-minus
-      .team-score
-        h2.team-name {{ teamTwoName }}
-        div.score-box
-          p.score {{ teamTwoScore }}
-        .input-container
-          label.name(for="teamTwoName") Enter Team Name
-          input.input-name(
-            @keyup.enter="updateTeamTwo"
-            @blur="updateTeamTwo"
-            v-model="enteredTeamTwo" 
-            type="text" 
-            placeholder="Team Two Name"
-            title="Enter your awesome team name!"
-          )
-        button.add(@click="addTeamTwo")
-          i.fal.fa-plus
-        button.add(@click="minusTeamTwo")
-          i.fal.fa-minus
+      Team(
+        :teamName="teamName"
+        :teamScore="teamScore"
+        :enteredTeamName="enteredTeamName"
+      )
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Team from './Team.vue'
+
 export default Vue.extend({
   name: 'scoreboard',
+  components: { Team },
+  props: {
+    teamName: String,
+    teamScore: Number,
+    enteredTeamName: String
+  },
   data() {
     return {
-      teamOneName: 'Team 1',
-      teamOneScore: 0,
-      enteredTeamOne: '',
-      teamTwoName: 'Team 2',
-      teamTwoScore: 0,
-      enteredTeamTwo: ''
-    }
-  },
-  methods: {
-    updateTeamOne(): string {
-      return this.teamOneName = this.enteredTeamOne
-    },
-    updateTeamTwo(): string {
-      return this.teamTwoName = this.enteredTeamTwo
-    },
-    addTeamOne(): number {
-      return this.teamOneScore += 1
-    },
-    minusTeamOne(): number {
-      if (this.teamOneScore <= 0) {
-        return 0
-      }
-      return this.teamOneScore -= 1
-    },
-    addTeamTwo(): number {
-      return this.teamTwoScore += 1
-    },
-    minusTeamTwo(): number {
-      if (this.teamTwoScore <= 0) {
-        return 0
-      }
-      return this.teamTwoScore -= 1
+      teamName: '',
+      teamScore: 0,
+      enteredTeamName: '',
     }
   }
 })
