@@ -18,7 +18,7 @@
       v-if="this.$store.state.teamNameOne"
       @click="resetTeam"
     )
-      | Update Team
+      | Update Name
     button(@click="addOne")
       i.fal.fa-plus
     button(@click="minusOne")
