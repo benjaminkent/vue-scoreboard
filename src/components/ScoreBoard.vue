@@ -15,50 +15,18 @@
         i.fal.fa-football-ball
         i.fal.fa-basketball-ball
     .teams
-      .team-score
-        h2.team-name {{ teamOneName }}
-        div.score-box
-          p.score {{ teamOneScore }}
-        .input-container
-          label.name(for="teamOneName") Enter Team Name
-          input.input-name(
-            @keyup.enter="updateTeamOne"
-            @blur="updateTeamOne"
-            v-model="enteredTeamOne" 
-            type="text" 
-            placeholder="Team One Name"
-            title="Enter your awesome team name!"
-          )
-        button.add(@click="addTeamOne")
-          i.fal.fa-plus
-        button.add(@click="minusTeamOne")
-          i.fal.fa-minus
-      Team(
-        :teamName="teamName"
-        :teamScore="teamScore"
-        :enteredTeamName="enteredTeamName"
-      )
+      TeamOne
+      TeamTwo
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Team from './Team.vue'
+import TeamOne from './TeamOne.vue'
+import TeamTwo from './TeamTwo.vue'
 
 export default Vue.extend({
   name: 'scoreboard',
-  components: { Team },
-  props: {
-    teamName: String,
-    teamScore: Number,
-    enteredTeamName: String
-  },
-  data() {
-    return {
-      teamName: '',
-      teamScore: 0,
-      enteredTeamName: '',
-    }
-  }
+  components: { TeamOne, TeamTwo }
 })
 </script>
 
@@ -151,6 +119,11 @@ h1 {
 i {
   margin: 5px;
   font-size: 20px;
+}
+
+button.update-name {
+  padding: 11px 0;
+  margin-top: 60px;
 }
 
 </style>

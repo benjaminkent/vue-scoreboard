@@ -1,40 +1,58 @@
 <template lang="pug">
   .team-score
-    h2.team-name {{ teamName }}
+    span.fill-the-void(v-if="!this.$store.state.teamNameOne")
+    h2.team-name {{ teamNameOne }}
     div.score-box
-      p.score {{ teamScore }}
-    .input-container
-      label.name(for="teamTwoName") Enter Team Name
+      p.score {{ teamOneScore }}
+    .input-container(v-if="!this.$store.state.teamNameOne")
+      label.name(for="teamOneName") Enter Team Name
       input.input-name(
         @keyup.enter="updateTeamName"
         @blur="updateTeamName"
         v-model="enteredTeamName" 
         type="text" 
-        placeholder="Team Two Name"
+        placeholder="Team One Name"
         title="Enter your awesome team name!"
       )
-    button.add(@click="addOne")
+    button.update-name(
+      v-if="this.$store.state.teamNameOne"
+      @click="resetTeam"
+    )
+      | Update Name
+    button(@click="addOne")
       i.fal.fa-plus
-    button.add(@click="minusOne")
+    button(@click="minusOne")
       i.fal.fa-minus
 </template>
 
 <script lang='ts'>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'team',
-  methods: {
-    updateTeamName(): string {
-      return this.teamName = this.enteredTeamName
-    },
-    addOne(): number {
-      return this.teamScore += 1
-    },
-    minusOne(): number {
-      if (this.teamScore <= 0) {
-        return 0
-      }
-      return this.teamScore -= 1
+  name: 'TeamOne',
+  data() {
+    return {
+      enteredTeamName: ''
     }
+  },
+  methods: {
+    addOne() {
+      this.$store.commit('addTeamOne')
+    },
+    minusOne() {
+      this.$store.commit('subtractTeamOne')
+    },
+    updateTeamName() {
+      this.$store.commit('updateTeamOne', this.enteredTeamName)
+    },
+    resetTeam() {
+      this.$store.commit('updateTeamOne', '')
+      this.$store.commit('resetTeamOneScore', 0)
+      this.enteredTeamName = ''
+    }
+  },
+  computed: {
+    ...mapState(['teamOneScore', 'teamNameOne'])
   }
 }
 </script>
@@ -45,6 +63,10 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 0 30px;
+}
+
+.fill-the-void {
+  margin: 18px 0;
 }
 
 .score-box {
