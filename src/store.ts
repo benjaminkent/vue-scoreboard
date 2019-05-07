@@ -15,9 +15,7 @@ export default new Vuex.Store({
       state.teamOneScore += 1
     },
     subtractTeamOne(state) {
-      if (state.teamOneScore <= 0) {
-        return
-      }
+      if (state.teamOneScore <= 0) { return }
       state.teamOneScore -= 1
     },
     updateTeamOne(state, name) {
@@ -30,9 +28,7 @@ export default new Vuex.Store({
       state.teamTwoScore += 1
     },
     subtractTeamTwo(state) {
-      if (state.teamTwoScore <= 0) {
-        return
-      }
+      if (state.teamTwoScore <= 0) { return }
       state.teamTwoScore -= 1
     },
     updateTeamTwo(state, name) {
